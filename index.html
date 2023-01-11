@@ -1,0 +1,230 @@
+<!doctype html>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <link rel="shortcut icon" href="img/favicon.ico">
+    <title>レジャーチケット 購入確認ページ</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css" media="all">
+    <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="js/coupon.js"></script>
+    <script type="text/javascript" src="js/disable_return_page.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/common.css" media="all">
+</head>
+<body>
+<div class="header" id="top">
+    <div class="header-inner">
+        <h1>
+            <a href="http://leisure.tstar.jp/">
+                <img src="img/logo.png" alt="レジャーチケット 購入確認ページ" height="64">
+            </a>
+        </h1>
+    </div>
+</div>
+
+<div class="wrapper">
+    <div class="kadomaru">
+
+
+        <div id="modal-content">
+            <h2>入場チケット情報</h2>
+            <form id="coupon_form">
+                <input class="btnCoupon" onclick="confirmAgain()" type="button" value="利用する">
+                <input id="modal-close" class="btnCouponClose" type="button" value="やめる"><br><br><br>
+                <input id="disp_dialog" name="disp_dialog" class="coupon_check" type="checkbox">
+                <label for="disp_dialog" class="large">次回から表示しない</label>
+            </form>
+            <br>
+
+            <div class="alert-message tac">※重要※</div>
+            <div class="message">この操作は、施設（または店舗）の方が行います。<br>
+                お客様ご自身が押してしまった場合は<span class="alert-message">無効</span>になります。
+            </div>
+        </div>
+
+        <div id="alert-modal-content">
+            <h2>入場チケット情報</h2>
+            <div class="super-attention">
+                ※このチケットは既に使用されています。<br>
+            </div>
+            <form id="alert_coupon_form" action="" method="GET">
+                <input class="btnCoupon" type="submit" value="前に戻る">
+            </form>
+            <br>
+        </div>
+
+        <div class="purchased">
+            <div class="security_box">
+    <span class="security_body" style="background-color:green">
+      357
+    </span>
+            </div>
+
+            <h2>入場チケット情報</h2>
+
+            <table class="purchasedContents">
+                <tbody>
+                <tr>
+                </tr>
+                </tbody>
+                <thead>
+                <tr>
+                    <th colspan="4">ナスパスキーガーデン <br>前売券</th>
+                </tr>
+                </thead>
+
+
+            </table>
+            <p>
+
+            </p>
+            <table class="purchasedContents">
+                <tbody>
+                <tr>
+                </tr>
+                </tbody>
+                <thead>
+                <tr>
+                    <th colspan="4">受付番号</th>
+                </tr>
+                </thead>
+
+
+                <tbody>
+                <tr>
+                    <td id="japanCode" class="textR">RL00003P7H01</td>
+                </tr>
+                </tbody>
+            </table>
+            <p>
+
+            </p>
+            <table class="purchasedContents">
+                <tbody>
+                <tr>
+                </tr>
+                </tbody>
+                <thead>
+                <tr>
+                    <th colspan="4">有効期限</th>
+                </tr>
+                </thead>
+
+
+                <tbody>
+                <tr>
+                    <td class="textR">2022年03月27日16時59分まで、ご入場できます。</td>
+                </tr>
+                </tbody>
+            </table>
+            <p>
+
+            </p>
+            <table class="purchasedContents">
+                <tbody>
+                <tr>
+                </tr>
+                </tbody>
+                <thead>
+                <tr>
+                    <th colspan="2">ご購入チケット</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="textR coupon_name" colspan="2">前売券<br>
+                        【平日】　リフト1日券　大人 × 1枚
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textR ticket_col">
+                        【平日】　リフト1日券　大人
+                    </td>
+                    <!--<td class="textR">-->
+                    <!--<div class="confirm_not_exist">-->
+                    <!--<form method="POST" action="/coupon/9508373515/use/60462144">-->
+                    <!--<input class="btnCoupon" type="submit" value="利用する">-->
+                    <!--</form>-->
+                    <!--</div>-->
+                    <!--<div class="confirm_exist">-->
+                    <!--<input class="btnCoupon coupon_button" type="button" value="利用する" next_url="/coupon/9508373515/use/60462144" check_url="/coupon/can_use/60462144">-->
+                    <!--</div>-->
+                    <!--</td>-->
+                    <td style="border-right: 1px solid;" class="textR checked ticket_col">
+                        <div>利用済みです</div>
+                        <span id="ticket-time"></span>
+                    </td>
+                    <!--need hidden-->
+                    <td class="textR noChecked">
+                        <div class="confirm_not_exist">
+                            <form>
+                                <input class="btnCoupon" type="submit" value="利用する">
+                            </form>
+                        </div>
+                        <div class="confirm_exist">
+                            <input class="btnCoupon coupon_button" type="button" value="利用する">
+                        </div>
+                    </td>
+
+                </tr>
+                <td class="checked" colspan="2">
+                </td>
+                <tr class="noChecked">
+                    <td colspan="2">
+                        <input class="btnAllCoupon coupon_button" type="button" value="全てのチケットを使用する">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <p>
+            </p></div>
+
+        <script>
+
+            var required_confirm = null;
+
+            if (document.cookie.indexOf("_coupon") > -1) {
+                $(".confirm_exist").hide();
+                $(".confirm_not_exist").show();
+            } else {
+                $(".confirm_exist").show();
+                $(".confirm_not_exist").hide();
+            }
+
+            //判断当前浏览器有没有值
+            // 获取 番号
+            var code = window.localStorage.getItem('japanCode');
+
+            var japanCodeInIndex = $("#japanCode").html();
+            //以番号为参照，存时间戳
+            if (code&&japanCodeInIndex === code) {
+                    //还原值
+                var time=window.localStorage.getItem('japanTime');
+                $("#ticket-time").html(time);
+                    //隐藏按钮，设置时间戳
+                    $(".checked").show();
+                    $(".noChecked").hide();
+
+            } else {
+                console.log('什么啊11')
+                $(".checked").hide();
+                $(".noChecked").show();
+            }
+        </script>
+
+    </div>
+</div>
+
+<div class="footer">
+    <div class="footer-inner">
+        <div class="copyright clear">
+            © Rakuten Ticket, Inc.
+        </div>
+    </div>
+</div>
+
+<div id="modal-overlay" style=""></div>
+</body>
+</html>
